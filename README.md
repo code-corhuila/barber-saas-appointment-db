@@ -23,3 +23,46 @@ branch into another: `merge develop -> qa` and `merge qa -> main` do not exist i
 rule.
 
 Full policy: `00-governance/branching-policy.md` in `library-docs`.
+
+---
+
+## BarberSaaS — what this repository is
+
+The `appointment` schema (appointments with their status and price snapshot, idempotency keys,
+the outbox of appointment events) versioned with Liquibase (ADR-007), following annex A and
+Annex J: it has **no database instance of its own**. Its runner applies the changesets to the
+single PostgreSQL instance of `barber-saas-infra`, with its own changelog tables
+(`databasechangelog_appointment`). Model: `06-data/models.md` §5 and §10 in `barber-saas-docs`.
+
+### How to run the migrations
+
+From `barber-saas-infra`, with the platform up:
+
+```bash
+docker compose --env-file env/dev.env run --rm appointment-db-migrate            # update
+docker compose --env-file env/dev.env run --rm appointment-db-migrate status --verbose
+docker compose --env-file env/dev.env run --rm appointment-db-migrate rollback-count 1
+```
+
+The instance must provide the `btree_gist` extension (besides `pgcrypto`): the
+no-double-booking constraint needs it, and extensions are created by the infrastructure, never
+by a `-db` (Annex J J.4).
+
+### Where the data is
+
+Schema `appointment` in database `barbersaas` of the shared instance. The service reads and
+writes it as `appointment_app` (granted `appointment_writer` in `03_dcl/`); nobody else writes it.
+Barbershop, barber, service and users are referenced by id with no foreign key: appointment-api
+checks them through `barbershop-api` and `schedule-api`, never by reading their tables.
+
+### How it is tested
+
+`.github/workflows/db-ci.yml` builds the schema from an empty database, checks that a second
+update applies nothing, rolls everything back and applies it again. The double-booking
+constraint `ex_appointment_no_double_booking` is exercised by the integration tests of
+`barber-saas-appointment-api`.
+
+### What is missing
+
+No seed data: appointments are created through the API. The outbox is written, but the process
+that publishes it and its transport are still open (AT-004 in `05-architecture/overview.md`).
