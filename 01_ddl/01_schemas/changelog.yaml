@@ -1,1 +1,18 @@
-databaseChangeLog: []
+databaseChangeLog:
+  - changeSet:
+      id: ddl-schemas-001
+      author: JUANDAX233
+      labels: "HU-APPT-001,ddl,schemas"
+      comment: "The appointment schema. Nothing of this domain lives in public (Annex J J.4)."
+      changes:
+        - sqlFile:
+            path: 001_create_schema_appointment.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/01_schemas/001_create_schema_appointment.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
