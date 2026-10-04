@@ -16,3 +16,20 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: false
             stripComments: false
+  - changeSet:
+      id: ddl-indexes-002
+      author: JUANDAX233
+      labels: "HU-APPT-001,ddl,indexes"
+      comment: "ex_appointment_no_double_booking: the database refuses two overlapping active appointments of one barber (INV-APPT-001)."
+      changes:
+        - sqlFile:
+            path: 002_create_no_double_booking.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/10_indexes/002_create_no_double_booking.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
