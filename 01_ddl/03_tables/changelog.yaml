@@ -33,3 +33,20 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: false
             stripComments: false
+  - changeSet:
+      id: ddl-tables-003
+      author: JUANDAX233
+      labels: "HU-APPT-001,ddl,tables"
+      comment: "outbox_event: the change and its event commit together; completing no longer writes to finance (norm 5.3.11)."
+      changes:
+        - sqlFile:
+            path: 003_create_outbox_event.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/03_tables/003_create_outbox_event.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
