@@ -33,3 +33,20 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: false
             stripComments: false
+  - changeSet:
+      id: ddl-indexes-003
+      author: JUANDAX233
+      labels: "HU-APPT-001,ddl,indexes"
+      comment: "idx_outbox_event_unpublished now also leaves out the failed events: what the worker reads (ADR-016)."
+      changes:
+        - sqlFile:
+            path: 003_replace_outbox_event_unpublished.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/10_indexes/003_replace_outbox_event_unpublished.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
