@@ -31,12 +31,12 @@ Full policy: `00-governance/branching-policy.md` in `barber-saas-docs`.
 The `appointment` schema (appointments with their status and price snapshot, idempotency keys,
 the outbox of appointment events) versioned with Liquibase (ADR-007), following annex A and
 Annex J: it has **no database instance of its own**. Its runner applies the changesets to the
-single PostgreSQL instance of `barber-saas-infra`, with its own changelog tables
+single PostgreSQL instance of `barber-saas-infra-postgres`, with its own changelog tables
 (`databasechangelog_appointment`). Model: `06-data/models.md` §5 and §10 in `barber-saas-docs`.
 
 ### How to run the migrations
 
-From `barber-saas-infra`, with the platform up:
+From `barber-saas-infra-postgres`, with the platform up:
 
 ```bash
 docker compose --env-file env/dev.env run --rm appointment-db-migrate            # update
