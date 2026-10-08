@@ -33,3 +33,20 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: false
             stripComments: false
+  - changeSet:
+      id: ddl-alter-003
+      author: Pipecerquera
+      labels: "HU-APPT-001,ddl,alter"
+      comment: "appointment: coupon_id, the loyalty reward coupon applied at booking (DEC-APPT-09, FR-010)."
+      changes:
+        - sqlFile:
+            path: 003_add_appointment_coupon_id.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/04_alter/003_add_appointment_coupon_id.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
