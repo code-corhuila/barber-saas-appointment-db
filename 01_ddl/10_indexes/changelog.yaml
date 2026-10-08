@@ -50,3 +50,20 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: false
             stripComments: false
+  - changeSet:
+      id: ddl-indexes-004
+      author: Pipecerquera
+      labels: "HU-APPT-001,ddl,indexes"
+      comment: "uq_appointment_coupon: one appointment per reward coupon (DEC-APPT-09)."
+      changes:
+        - sqlFile:
+            path: 004_create_appointment_coupon.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/10_indexes/004_create_appointment_coupon.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false

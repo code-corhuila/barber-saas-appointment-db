@@ -67,5 +67,7 @@ constraint `ex_appointment_no_double_booking` is exercised by the integration te
 No seed data: appointments are created through the API. The outbox is read and confirmed by
 `barber-saas-worker` through appointment-api (ADR-016): `failed_at` and `last_error` set aside an
 event it cannot deliver, and the pending index leaves those out. `reminder_sent_at` makes the
-reminder of an appointment a one-time write (`DEC-APPT-07`). Every one of these arrived in a new
-changeset (`ddl-alter-001`, `ddl-alter-002`, `ddl-indexes-003`): applied changesets are never edited.
+reminder of an appointment a one-time write (`DEC-APPT-07`). `coupon_id` is the loyalty reward coupon
+applied at booking, and `uq_appointment_coupon` keeps a coupon on one appointment (`DEC-APPT-09`).
+Every one of these arrived in a new changeset (`ddl-alter-001` … `003`, `ddl-indexes-003`, `004`):
+applied changesets are never edited.
