@@ -50,3 +50,20 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: false
             stripComments: false
+  - changeSet:
+      id: ddl-alter-004
+      author: Pipecerquera
+      labels: "HU-APPT-001,ddl,alter"
+      comment: "chk_appointment_coupon_price: an appointment paid by a reward coupon costs 0 (DEC-APPT-09)."
+      changes:
+        - sqlFile:
+            path: 004_add_appointment_coupon_price_check.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/04_alter/004_add_appointment_coupon_price_check.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
