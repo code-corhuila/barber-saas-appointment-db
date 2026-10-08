@@ -48,6 +48,12 @@ The instance must provide the `btree_gist` extension (besides `pgcrypto`): the
 no-double-booking constraint needs it, and extensions are created by the infrastructure, never
 by a `-db` (Annex J J.4).
 
+**Roll back only with `rollback-count`**, never one changeset out of order: Liquibase undoes the
+changesets in the reverse order they were applied, so `ddl-indexes-004` (`uq_appointment_coupon`)
+and `ddl-alter-004` (`chk_appointment_coupon_price`) are undone before `ddl-alter-003` drops
+`coupon_id`. Dropping the column first would take the index and the check with it while the tracking
+table still lists them as applied.
+
 ### Where the data is
 
 Schema `appointment` in database `barbersaas` of the shared instance. The service reads and
@@ -68,6 +74,8 @@ No seed data: appointments are created through the API. The outbox is read and c
 `barber-saas-worker` through appointment-api (ADR-016): `failed_at` and `last_error` set aside an
 event it cannot deliver, and the pending index leaves those out. `reminder_sent_at` makes the
 reminder of an appointment a one-time write (`DEC-APPT-07`). `coupon_id` is the loyalty reward coupon
-applied at booking, and `uq_appointment_coupon` keeps a coupon on one appointment (`DEC-APPT-09`).
-Every one of these arrived in a new changeset (`ddl-alter-001` … `003`, `ddl-indexes-003`, `004`):
+applied at booking, `uq_appointment_coupon` keeps a coupon on one appointment and
+`chk_appointment_coupon_price` makes such an appointment cost 0 (`DEC-APPT-09`); both are exercised
+by the JDBC tests of `barber-saas-appointment-api` (`RepositoryContract`).
+Every one of these arrived in a new changeset (`ddl-alter-001` … `004`, `ddl-indexes-003`, `004`):
 applied changesets are never edited.
