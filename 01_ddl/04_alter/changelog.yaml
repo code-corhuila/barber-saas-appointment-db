@@ -84,3 +84,20 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: false
             stripComments: false
+  - changeSet:
+      id: ddl-alter-006
+      author: JUANDAX233
+      labels: "HU-APPT-005,ddl,alter"
+      comment: "fk_review_appointment and uq_review_appointment: a review belongs to one appointment, and an appointment has one review (DEC-APPT-11)."
+      changes:
+        - sqlFile:
+            path: 006_add_review_appointment_keys.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/04_alter/006_add_review_appointment_keys.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
