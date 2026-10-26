@@ -67,3 +67,20 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: false
             stripComments: false
+  - changeSet:
+      id: ddl-indexes-005
+      author: JUANDAX233
+      labels: "HU-APPT-005,ddl,indexes"
+      comment: "The reviews of a barbershop newest first, and of one barber (DEC-APPT-11)."
+      changes:
+        - sqlFile:
+            path: 005_create_review_indexes.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/10_indexes/005_create_review_indexes.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
