@@ -77,5 +77,9 @@ reminder of an appointment a one-time write (`DEC-APPT-07`). `coupon_id` is the 
 applied at booking, `uq_appointment_coupon` keeps a coupon on one appointment and
 `chk_appointment_coupon_price` makes such an appointment cost 0 (`DEC-APPT-09`); both are exercised
 by the JDBC tests of `barber-saas-appointment-api` (`RepositoryContract`).
-Every one of these arrived in a new changeset (`ddl-alter-001` … `004`, `ddl-indexes-003`, `004`):
-applied changesets are never edited.
+MVP 3 adds `hour_reminder_sent_at`, the mark of the one-hour reminder (`DEC-APPT-12`), and the
+`review` table (`DEC-APPT-11`): one review per appointment (`uq_review_appointment`, which
+appointment-api answers with `422`), deleted with its appointment (`fk_review_appointment`,
+`ON DELETE CASCADE`), and indexed for the public list of a barbershop and its filter by barber.
+Every one of these arrived in a new changeset (`ddl-tables-004`, `ddl-alter-001` … `006`,
+`ddl-indexes-003` … `005`): applied changesets are never edited.

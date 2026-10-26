@@ -5,6 +5,17 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+User stories: code-corhuila/barber-saas-docs#130, code-corhuila/barber-saas-docs#131
+
+### Added
+
+- ddl: add hour_reminder_sent_at to appointment
+- ddl: create review
+- ddl: keep one review per appointment
+- ddl: index the reviews of a barbershop and of a barber
+
 ## [2.0.0] - 2026-10-08
 
 User stories: code-corhuila/barber-saas-docs#4, code-corhuila/barber-saas-docs#5, code-corhuila/barber-saas-docs#59
