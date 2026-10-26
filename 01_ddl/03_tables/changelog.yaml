@@ -50,3 +50,20 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: false
             stripComments: false
+  - changeSet:
+      id: ddl-tables-004
+      author: JUANDAX233
+      labels: "HU-APPT-005,ddl,tables"
+      comment: "review: the rating of a completed appointment by its client, with the barbershop and barber copied from it (DEC-APPT-11)."
+      changes:
+        - sqlFile:
+            path: 004_create_review.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/03_tables/004_create_review.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
