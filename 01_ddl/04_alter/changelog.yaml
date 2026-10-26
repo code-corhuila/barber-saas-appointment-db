@@ -67,3 +67,20 @@ databaseChangeLog:
             relativeToChangelogFile: true
             splitStatements: false
             stripComments: false
+  - changeSet:
+      id: ddl-alter-005
+      author: JUANDAX233
+      labels: "HU-NOTIF-005,ddl,alter"
+      comment: "appointment: hour_reminder_sent_at, so the one-hour reminder is written once per appointment (DEC-APPT-12)."
+      changes:
+        - sqlFile:
+            path: 005_add_appointment_hour_reminder_sent_at.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
+      rollback:
+        - sqlFile:
+            path: ../../05_rollbacks/01_ddl/04_alter/005_add_appointment_hour_reminder_sent_at.rollback.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+            stripComments: false
