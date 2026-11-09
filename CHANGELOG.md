@@ -5,7 +5,7 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [3.0.0] - 2026-11-05
 
 User stories: code-corhuila/barber-saas-docs#130, code-corhuila/barber-saas-docs#131
 
@@ -15,6 +15,10 @@ User stories: code-corhuila/barber-saas-docs#130, code-corhuila/barber-saas-docs
 - ddl: create review
 - ddl: keep one review per appointment
 - ddl: index the reviews of a barbershop and of a barber
+
+### Documentation
+
+- readme: describe the review table and the one-hour reminder mark
 
 ## [2.0.0] - 2026-10-08
 
@@ -64,4 +68,5 @@ User stories: code-corhuila/barber-saas-docs#4, code-corhuila/barber-saas-docs#5
 - liquibase: add the master changelog and the ddl, dml, dcl and tcl families
 - use the new repository name barber-saas-infra-postgres
 
+[3.0.0]: https://github.com/code-corhuila/barber-saas-appointment-db/releases/tag/v3.0.0
 [2.0.0]: https://github.com/code-corhuila/barber-saas-appointment-db/releases/tag/v2.0.0
